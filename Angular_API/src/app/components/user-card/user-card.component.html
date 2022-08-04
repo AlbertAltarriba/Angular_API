@@ -1,1 +1,18 @@
-<p>user-card works!</p>
+<div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img [src]="myUser.image" class="img-fluid rounded-start" [alt]="myUser.first_name">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{ myUser.first_name }} {{myUser.last_name}}</h5>
+          <div class="card-text">
+            <button class="btn btn-secondary m-1" [routerLink]="['/user', myUser.id]"><i class="fa-solid fa-eye"></i></button>
+            <button class="btn btn-secondary m-1" [routerLink]="['/updateuser', myUser.id]"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button class="btn btn-secondary m-1"><i class="fa-solid fa-trash-can"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    -->
