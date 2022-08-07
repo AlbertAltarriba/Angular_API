@@ -13,4 +13,8 @@ export class UsersService {
   getAll(): Promise<any> {
     return lastValueFrom(this.httpClient.get<any>(this.baseURL))
   }
+
+  getById(id:number): Promise<any> {
+    return lastValueFrom(this.httpClient.get<any>(`${this.baseURL}/${id}`))
+  }
 }

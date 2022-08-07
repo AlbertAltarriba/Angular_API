@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { User } from 'src/app/interfaces/user.interface';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-user-view',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserViewComponent implements OnInit {
 
-  constructor() { }
+  myUser: User | any;
+  constructor(
+    private usersService: UsersService,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+
+    this.activatedRoute.params.subscribe(async (params:any) => {
+      let id: number = Number(params.iduser);
+      let response = await this.usersService.getById(id);
+      this.myUser = response;
+      
+    })
   }
 
 }

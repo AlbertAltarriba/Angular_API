@@ -22,7 +22,6 @@ export class UserListComponent implements OnInit {
       let response = await this.usersService.getAll();
       // this.currentPage = response.page;
       this.arrUsers = response.data;
-      console.log(this.arrUsers)
       // this.total_pages = response.total_pages;
     } catch (err) {
       console.log(err)

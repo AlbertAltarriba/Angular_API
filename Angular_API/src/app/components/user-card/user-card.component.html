@@ -7,12 +7,12 @@
         <div class="card-body">
           <h5 class="card-title">{{ myUser.first_name }} {{myUser.last_name}}</h5>
           <div class="card-text">
-            <button class="btn btn-secondary m-1" [routerLink]="['/user', myUser.id]"><i class="fa-solid fa-eye"></i></button>
-            <button class="btn btn-secondary m-1" [routerLink]="['/updateuser', myUser.id]"><i class="fa-solid fa-pen-to-square"></i></button>
-            <button class="btn btn-secondary m-1"><i class="fa-solid fa-trash-can"></i></button>
+            <button class="btn btn-secondary m-1" [routerLink]="['/user', myUser.id]" title="Ver contacto"><i class="fa-solid fa-eye"></i></button>
+            <button class="btn btn-secondary m-1" [routerLink]="['/updateuser', myUser.id]" title="Editar contacto"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button class="btn btn-secondary m-1" title="Eliminar contacto"><i class="fa-solid fa-trash-can"></i></button>
           </div>
         </div>
       </div>
     </div>
   </div>
-    -->
+    
