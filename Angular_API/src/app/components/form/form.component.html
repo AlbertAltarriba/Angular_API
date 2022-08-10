@@ -1,1 +1,29 @@
-<p>form works!</p>
+<section class="container mt-3">
+    <h1>{{ type }} usuario</h1>
+    <form [formGroup]="userForm" (ngSubmit)="getDataForm()">
+  
+      <div>
+        <label class="form-label" for="first_name">Nombre</label>
+        <input class="form-control" type="text" id="first_name" formControlName="first_name">
+      </div>
+  
+      <div>
+        <label class="form-label" for="last_name">Apellido</label>
+        <input class="form-control" type="text" id="last_name" formControlName="last_name">
+      </div>
+  
+      <div>
+        <label class="form-label" for="email">Email</label>
+        <input class="form-control" type="text" id="email" formControlName="email">
+      </div>
+  
+      <div>
+        <label class="form-label" for="image">Foto</label>
+        <input class="form-control" type="text" id="image" formControlName="image">
+      </div>
+  
+      <input type="submit" [value]="type" class="btn btn-success mt-3">
+    </form>
+  
+  </section>
+  

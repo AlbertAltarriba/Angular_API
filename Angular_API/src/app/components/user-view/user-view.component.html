@@ -8,8 +8,8 @@
           <h2> {{ myUser?.first_name }} {{myUser?.last_name}}</h2>
           <p> Nombre Usuario: {{myUser?.username}}</p>
           <p>Email: <a [href]=" 'mailto:' + myUser?.email ">{{myUser?.email}}</a> </p>
-          <button class="btn btn-secondary m-1" [routerLink]="['/updateuser', myUser.id]" title="Editar contacto"><i class="fa-solid fa-pen-to-square"></i></button>
-          <button class="btn btn-secondary m-1" title="Eliminar contacto"><i class="fa-solid fa-trash-can"></i></button>
+          <button class="btn btn-secondary m-1" [routerLink]="['/updateuser', myUser?.id]" title="Editar contacto"><i class="fa-solid fa-pen-to-square"></i></button>
+          <button class="btn btn-secondary m-1" title="Eliminar contacto" (click)="deleteUser()" ><i class="fa-solid fa-trash-can"></i></button>
           <button class="btn btn-secondary" [routerLink]="['/home']">Volver listado</button>
         </div>
       </div>

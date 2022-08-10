@@ -9,7 +9,7 @@
           <div class="card-text">
             <button class="btn btn-secondary m-1" [routerLink]="['/user', myUser.id]" title="Ver contacto"><i class="fa-solid fa-eye"></i></button>
             <button class="btn btn-secondary m-1" [routerLink]="['/updateuser', myUser.id]" title="Editar contacto"><i class="fa-solid fa-pen-to-square"></i></button>
-            <button class="btn btn-secondary m-1" title="Eliminar contacto"><i class="fa-solid fa-trash-can"></i></button>
+            <button class="btn btn-secondary m-1" (click)="deleteUser(myUser.id)" title="Eliminar contacto"><i class="fa-solid fa-trash-can"></i></button>
           </div>
         </div>
       </div>
