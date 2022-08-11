@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/interfaces/user.interface';
 import { UsersService } from 'src/app/services/users.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-view',
@@ -22,17 +23,40 @@ export class UserViewComponent implements OnInit {
     this.activatedRoute.params.subscribe(async (params:any) => {
       let id: number = Number(params.iduser);
       let response = await this.usersService.getById(id);
-      this.myUser = response;
-      
+      this.myUser = response;      
     })
   }
 
-  async deleteUser(): Promise<void>{
-      let response = await this.usersService.delete(this.myUser.id);
-      if(response.id){
-        alert(`Usuario ${response.first_name} ${response.last_name} eliminado correctamente!`)
-        this.router.navigate(['/home']);
+  deleteUser(): void{
+    Swal.fire({
+      title: 'Seguro que quieres borrar este usuario?',
+      text: "No hay marcha atrás!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, borrar',
+      cancelButtonText: 'Cancelar'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        let response = await this.usersService.delete(this.myUser.id);
+        if(response.id){
+          Swal.fire(
+            'Borrado!',
+            `Usuario ${response.first_name} ${response.last_name} eliminado correctamente!`,
+            'success'
+          )
+          this.router.navigate(['/home']);
+        }
+        else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: response.error
+          })
+        }
       }
+    })  
   }
 
 }

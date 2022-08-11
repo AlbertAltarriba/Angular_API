@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/interfaces/user.interface';
 import { UsersService } from 'src/app/services/users.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form',
@@ -25,7 +26,7 @@ export class FormComponent implements OnInit {
       last_name: new FormControl('', []),
       username: new FormControl('', []),
       email: new FormControl('', []),
-      image: new FormControl('', []),
+      password: new FormControl('', []),
     }, [])
   }
 
@@ -37,16 +38,40 @@ export class FormComponent implements OnInit {
         let response = await this.usersService.update(newUser);
 
         if (response.id) {
-          alert(`Usuario ${response.first_name} ${response.last_name} actualizado`)
+          
+          Swal.fire({
+            icon: 'success',
+            title: `Usuario ${response.first_name} ${response.last_name} actualizado`,
+            imageUrl: response.image,
+            imageWidth: 200,
+            imageHeight: 200,
+            imageAlt: 'Custom image',
+            showConfirmButton: false,
+            timer: 2500
+          })
           this.router.navigate(['/home']);
         }
         else alert(response.error)
       } 
       else {
         //creando
+        
+        console.log(this.userForm.value)
+
         let response = await this.usersService.create(newUser)
         if (response.id) {
-          alert(`Usuario ${response.first_name} ${response.last_name} creado correctamente!`)
+
+          console.log(response)
+
+          Swal.fire({
+            icon: 'success',
+            title: `Usuario ${response.first_name} ${response.last_name} creado correctamente!`,
+            imageUrl: response.image,
+            imageWidth: 200,
+            imageHeight: 200,
+            imageAlt: 'Custom image',
+            showConfirmButton: true
+          })
           this.router.navigate(['/home'])
         } 
         else {
