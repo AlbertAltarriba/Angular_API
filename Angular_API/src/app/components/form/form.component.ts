@@ -51,7 +51,13 @@ export class FormComponent implements OnInit {
           })
           this.router.navigate(['/home']);
         }
-        else alert(response.error)
+        else {
+          Swal.fire({ //Error de API update
+            icon: 'error',
+            title: 'Oops...',
+            text: response.error
+          })
+        }
       } 
       else {
         //creando
@@ -75,11 +81,20 @@ export class FormComponent implements OnInit {
           this.router.navigate(['/home'])
         } 
         else {
-          alert('Hubo un error intentelo de nuevo')
+          Swal.fire({ //Error de API create
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Ha ocurrido un error creando el usuario'
+          })
         }
       }
     }
-    else{console.log("No valid")}
+    else{
+      Swal.fire({ //Error de form.valid
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Ha ocurrido un error validando el formulario'
+    })}
     
 
   }
@@ -88,17 +103,25 @@ export class FormComponent implements OnInit {
     this.activatedRoute.params.subscribe(async (params: any) => {
       let id: number = Number(params.iduser);
       if (id) {
-        //hacer una peticion para traerme los datos con lo que quiero llenar el formulario.
         this.type = 'Actualizar'
         const response = await this.usersService.getById(id)
-        const user: User = response
-        this.userForm = new FormGroup({
-          email: new FormControl(user?.email, []),
-          first_name: new FormControl(user?.first_name, []),
-          last_name: new FormControl(user?.last_name, []),
-          image: new FormControl(user?.image, []),
-          id: new FormControl(user?.id, [])
-        }, [])
+        if(response.id){
+          const user: User = response
+          this.userForm = new FormGroup({
+            email: new FormControl(user?.email, []),
+            first_name: new FormControl(user?.first_name, []),
+            last_name: new FormControl(user?.last_name, []),
+            image: new FormControl(user?.image, []),
+            id: new FormControl(user?.id, [])
+          }, [])
+        }
+        else{
+          Swal.fire({ //Error de API getById
+            icon: 'error',
+            title: 'Oops...',
+            text: response.error
+          })
+        }
       }
     })
   }

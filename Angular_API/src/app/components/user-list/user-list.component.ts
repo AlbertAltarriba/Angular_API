@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/interfaces/user.interface';
 import { UsersService } from 'src/app/services/users.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-list',
@@ -10,6 +11,8 @@ import { UsersService } from 'src/app/services/users.service';
 export class UserListComponent implements OnInit {
 
   arrUsers: User[] = [];
+  currentPage: number = 0;
+  total_pages: number = 0;
 
   constructor(private usersService: UsersService) { }
 
@@ -18,13 +21,20 @@ export class UserListComponent implements OnInit {
   }
 
   async gotoPage(pPage: number = 1): Promise<void> {
-    try {
-      let response = await this.usersService.getAll();
-      // this.currentPage = response.page;
+    
+    let response = await this.usersService.getAll(pPage);
+    console.log(response)
+    if(response.page <= response.total_pages){
+      this.currentPage = response.page;
       this.arrUsers = response.data;
-      // this.total_pages = response.total_pages;
-    } catch (err) {
-      console.log(err)
+      this.total_pages = response.total_pages;
+    }
+    else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Ha ocurrido un error cargando los usuarios'
+      })
     }
   }
 

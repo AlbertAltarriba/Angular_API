@@ -23,7 +23,17 @@ export class UserViewComponent implements OnInit {
     this.activatedRoute.params.subscribe(async (params:any) => {
       let id: number = Number(params.iduser);
       let response = await this.usersService.getById(id);
-      this.myUser = response;      
+      if(response.id){
+        this.myUser = response;
+      }
+      else{
+        Swal.fire({ //Error API getById
+          icon: 'error',
+          title: 'Oops...',
+          text: response.error
+        })
+      }
+            
     })
   }
 
@@ -49,7 +59,7 @@ export class UserViewComponent implements OnInit {
           this.router.navigate(['/home']);
         }
         else{
-          Swal.fire({
+          Swal.fire({ //Error API delete
             icon: 'error',
             title: 'Oops...',
             text: response.error
