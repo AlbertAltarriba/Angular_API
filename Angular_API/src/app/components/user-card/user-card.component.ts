@@ -11,6 +11,8 @@ import Swal from 'sweetalert2';
 export class UserCardComponent implements OnInit {
 
   @Input() myUser!: User;
+  @Input() currentPage: number = 0;
+
   constructor(private usersService: UsersService) { }
 
   ngOnInit(): void {

@@ -8,7 +8,8 @@ import { UserViewComponent } from './components/user-view/user-view.component';
 const routes: Routes = [
   { path: "", pathMatch: 'full', redirectTo: "home" },
   { path: "home", component: UserListComponent },
-  { path: "user/:iduser", component: UserViewComponent },
+  { path: "home/:currentPage", component: UserListComponent },
+  { path: "user/:iduser/:currentPage", component: UserViewComponent },
   { path: "newuser", component: FormComponent },
   { path: "updateuser/:iduser", component: FormComponent },
   { path: "**", component: ErrorPageComponent }

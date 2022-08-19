@@ -12,6 +12,8 @@ import Swal from 'sweetalert2';
 export class UserViewComponent implements OnInit {
 
   myUser: User | any;
+  currentPage: number = 0;
+
   constructor(
     private usersService: UsersService,
     private activatedRoute: ActivatedRoute,
@@ -21,7 +23,9 @@ export class UserViewComponent implements OnInit {
   ngOnInit(): void {
 
     this.activatedRoute.params.subscribe(async (params:any) => {
+      console.log(params)
       let id: number = Number(params.iduser);
+      this.currentPage = Number(params.currentPage)
       let response = await this.usersService.getById(id);
       if(response.id){
         this.myUser = response;
@@ -56,7 +60,7 @@ export class UserViewComponent implements OnInit {
             `Usuario ${response.first_name} ${response.last_name} eliminado correctamente!`,
             'success'
           )
-          this.router.navigate(['/home']);
+          this.router.navigate([`/home/${this.currentPage}`]);
         }
         else{
           Swal.fire({ //Error API delete

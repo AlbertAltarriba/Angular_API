@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/interfaces/user.interface';
 import { UsersService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
@@ -14,16 +15,27 @@ export class UserListComponent implements OnInit {
   currentPage: number = 0;
   total_pages: number = 0;
 
-  constructor(private usersService: UsersService) { }
+  constructor(
+    private usersService: UsersService,
+    private activatedRoute: ActivatedRoute
+    ) { }
 
   ngOnInit(): void {
-    this.gotoPage();
+    this.activatedRoute.params.subscribe(async (params:any) => {
+      console.log(params)
+      if(params.currentPage){
+        this.gotoPage(params.currentPage)
+      }
+      else{
+        this.gotoPage(1);
+      }    
+    })
+    
   }
 
-  async gotoPage(pPage: number = 1): Promise<void> {
+  async gotoPage(pPage: number): Promise<void> {
     
     let response = await this.usersService.getAll(pPage);
-    console.log(response)
     if(response.page <= response.total_pages){
       this.currentPage = response.page;
       this.arrUsers = response.data;
