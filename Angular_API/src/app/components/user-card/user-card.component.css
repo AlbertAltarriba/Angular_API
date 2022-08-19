@@ -1,0 +1,11 @@
+
+@media only screen and (max-width : 768px) {
+    .btn{
+        border-radius: 0px;
+    }
+    .btn:last-child{
+        border-bottom-left-radius: 0.375rem;
+        border-bottom-right-radius: 0.375rem;
+    }
+}
+

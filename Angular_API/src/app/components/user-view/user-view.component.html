@@ -1,16 +1,24 @@
-<section class="container mt-3">
-    <div class="card p-3">
-      <div class="row">
-        <figure class="col-12 col-md-3">
-          <img class="img-fluid" [src]="myUser?.image" [alt]="myUser?.first_name">
+<section class="container mt-5">
+    <div class="card">
+      <div class="row m-2 ">
+        <figure class="col-12 col-md-4 mb-0">
+          <img class="img-fluid rounded" [src]="myUser?.image" [alt]="myUser?.first_name">
         </figure>
-        <div class="col-12 col-md-9">
-          <h2> {{ myUser?.first_name }} {{myUser?.last_name}}</h2>
-          <p> Nombre Usuario: {{myUser?.username}}</p>
-          <p>Email: <a [href]=" 'mailto:' + myUser?.email ">{{myUser?.email}}</a> </p>
-          <button class="btn btn-secondary m-1" [routerLink]="['/updateuser', myUser?.id]" title="Editar contacto"><i class="fa-solid fa-pen-to-square"></i></button>
-          <button class="btn btn-secondary m-1" title="Eliminar contacto" (click)="deleteUser()" ><i class="fa-solid fa-trash-can"></i></button>
-          <button class="btn btn-secondary" [routerLink]="['/home']">Volver listado</button>
+        <div class="col-12 col-md-6">
+          <div class="card-body">
+            <div class="card-title mt-3 mb-5 fs-1">
+              <h2> {{ myUser?.first_name }} {{myUser?.last_name}}</h2>
+            </div>
+            <div class="card-text fs-5 align-items-center">
+              <p><span class="fw-bold">Nombre usuario: </span> {{myUser?.username}}</p>
+              <p><span class="fw-bold">Email: </span> <a [href]=" 'mailto:' + myUser?.email ">{{myUser?.email}}</a> </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-2 d-grid gap-2 my-4 ">
+          <button class="btn btn-secondary" [routerLink]="['/updateuser', myUser?.id]" title="Editar contacto"><i class="fa-solid fa-user-pen fs-4"></i></button>
+          <button class="btn btn-secondary" title="Eliminar contacto" (click)="deleteUser()" title="Eliminar contacto" ><i class="fa-solid fa-trash-can fs-4"></i></button>
+          <button class="btn btn-secondary" [routerLink]="['/home/'+ currentPage]" title="Volver al listado"><i class="fa-solid fa-person-walking-arrow-loop-left fs-4"></i></button>
         </div>
       </div>
     </div>
