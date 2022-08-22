@@ -20,13 +20,13 @@ export class UserCardComponent implements OnInit {
 
   deleteUser(pId: number | undefined): void{
     Swal.fire({
-      title: 'Seguro que quieres borrar este usuario?',
+      title: '¿Seguro que quieres eliminar este usuario?',
       text: "No hay marcha atrás!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, borrar',
+      confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar'
     }).then(async (result) => {
       if (result.isConfirmed) {
@@ -34,7 +34,7 @@ export class UserCardComponent implements OnInit {
           let response = await this.usersService.delete(pId);
           if(response.id){
             Swal.fire(
-              'Borrado!',
+              'Eliminado!',
               `Usuario ${response.first_name} ${response.last_name} eliminado correctamente!`,
               'success'
             )

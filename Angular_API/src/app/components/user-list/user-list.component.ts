@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/interfaces/user.interface';
 import { UsersService } from 'src/app/services/users.service';
 import Swal from 'sweetalert2';
@@ -17,12 +17,12 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private usersService: UsersService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
     ) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(async (params:any) => {
-      console.log(params)
       if(params.currentPage){
         this.gotoPage(params.currentPage)
       }
@@ -47,6 +47,7 @@ export class UserListComponent implements OnInit {
         title: 'Oops...',
         text: 'Ha ocurrido un error cargando los usuarios'
       })
+      this.router.navigate(['/home']);
     }
   }
 

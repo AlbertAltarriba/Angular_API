@@ -14,7 +14,7 @@ export class FormComponent implements OnInit {
 
   userForm: FormGroup;
 
-  type: string = "Crear nuevo ";
+  type: string = "Crear nuevo";
 
   constructor(
     private usersService: UsersService,
@@ -24,8 +24,8 @@ export class FormComponent implements OnInit {
     this.userForm = new FormGroup({
       first_name: new FormControl('', [Validators.required]),
       last_name: new FormControl('', []),
-      username: new FormControl('', []),
       email: new FormControl('', []),
+      username: new FormControl('', []),
       password: new FormControl('', []),
     }, [])
   }
@@ -34,7 +34,7 @@ export class FormComponent implements OnInit {
     if(this.userForm.valid){
       let newUser = this.userForm.value;
       if (newUser.id) {
-        //actualizando
+        //actualizar usuario
         let response = await this.usersService.update(newUser);
 
         if (response.id) {
@@ -60,7 +60,7 @@ export class FormComponent implements OnInit {
         }
       } 
       else {
-        //creando
+        //crear nuevo usuario
         
         console.log(this.userForm.value)
 
@@ -111,7 +111,7 @@ export class FormComponent implements OnInit {
             email: new FormControl(user?.email, []),
             first_name: new FormControl(user?.first_name, []),
             last_name: new FormControl(user?.last_name, []),
-            image: new FormControl(user?.image, []),
+            username: new FormControl(user?.username, []),
             id: new FormControl(user?.id, [])
           }, [])
         }

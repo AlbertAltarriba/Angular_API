@@ -23,7 +23,6 @@ export class UserViewComponent implements OnInit {
   ngOnInit(): void {
 
     this.activatedRoute.params.subscribe(async (params:any) => {
-      console.log(params)
       let id: number = Number(params.iduser);
       this.currentPage = Number(params.currentPage)
       let response = await this.usersService.getById(id);
@@ -43,20 +42,20 @@ export class UserViewComponent implements OnInit {
 
   deleteUser(): void{
     Swal.fire({
-      title: 'Seguro que quieres borrar este usuario?',
+      title: '¿Seguro que quieres eliminar este usuario?',
       text: "No hay marcha atrás!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, borrar',
+      confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar'
     }).then(async (result) => {
       if (result.isConfirmed) {
         let response = await this.usersService.delete(this.myUser.id);
         if(response.id){
           Swal.fire(
-            'Borrado!',
+            'Eliminado!',
             `Usuario ${response.first_name} ${response.last_name} eliminado correctamente!`,
             'success'
           )
