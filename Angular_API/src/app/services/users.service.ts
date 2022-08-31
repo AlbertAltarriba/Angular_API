@@ -36,5 +36,3 @@ export class UsersService {
     return lastValueFrom(this.httpClient.delete<any>(`${this.baseURL}/${id}`))
   }
 }
-
-// https://peticiones.online/api/users?page=2

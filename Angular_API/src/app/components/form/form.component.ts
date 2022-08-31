@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 export class FormComponent implements OnInit {
 
   userForm: FormGroup;
+  submitted: boolean = false;
 
   type: string = "Crear nuevo";
 
@@ -23,10 +24,19 @@ export class FormComponent implements OnInit {
   ) { 
     this.userForm = new FormGroup({
       first_name: new FormControl('', [Validators.required]),
-      last_name: new FormControl('', []),
-      email: new FormControl('', []),
-      username: new FormControl('', []),
-      password: new FormControl('', []),
+      last_name: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/[a-zA-Z]+\s[a-zA-Z]+/)
+      ]),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,6}$/)
+      ]),
+      username: new FormControl('', [Validators.required]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(20)]),
     }, [])
   }
 
@@ -35,40 +45,43 @@ export class FormComponent implements OnInit {
       let newUser = this.userForm.value;
       if (newUser.id) {
         //actualizar usuario
-        let response = await this.usersService.update(newUser);
+        if(this.userForm.dirty){ // solo hacer peticion si hay cambios en el form
+          let response = await this.usersService.update(newUser);
 
-        if (response.id) {
-          
-          Swal.fire({
-            icon: 'success',
-            title: `Usuario ${response.first_name} ${response.last_name} actualizado`,
-            imageUrl: response.image,
-            imageWidth: 200,
-            imageHeight: 200,
-            imageAlt: 'Custom image',
-            showConfirmButton: false,
-            timer: 2500
-          })
-          this.router.navigate(['/home']);
+          if (response.id) {
+            Swal.fire({
+              icon: 'success',
+              title: `Usuario ${response.first_name} ${response.last_name} actualizado`,
+              imageUrl: response.image,
+              imageWidth: 200,
+              imageHeight: 200,
+              imageAlt: 'Custom image',
+              showConfirmButton: false,
+              timer: 2500
+            })
+            this.router.navigate(['/home']);
+          }
+          else {
+            Swal.fire({ //Error de API update
+              icon: 'error',
+              title: 'Oops...',
+              text: response.error
+            })
+          }
         }
-        else {
-          Swal.fire({ //Error de API update
+        else{
+          Swal.fire({ //Sin cambios
             icon: 'error',
             title: 'Oops...',
-            text: response.error
+            text: 'No se han detectado cambios en el usuario',
+            footer: '<a href="/home">Volver a la página principal</a>'
           })
         }
       } 
       else {
         //crear nuevo usuario
-        
-        console.log(this.userForm.value)
-
         let response = await this.usersService.create(newUser)
         if (response.id) {
-
-          console.log(response)
-
           Swal.fire({
             icon: 'success',
             title: `Usuario ${response.first_name} ${response.last_name} creado correctamente!`,
@@ -94,9 +107,9 @@ export class FormComponent implements OnInit {
       icon: 'error',
       title: 'Oops...',
       text: 'Ha ocurrido un error validando el formulario'
-    })}
-    
-
+      })
+      this.submitted = true;
+    }
   }
 
   ngOnInit(): void {
@@ -125,5 +138,18 @@ export class FormComponent implements OnInit {
       }
     })
   }
+
+  checkControl(pControlName: string, pError: string): boolean {
+    if(this.submitted){
+      if (this.userForm.get(pControlName)?.hasError(pError) ) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    else return false;
+    
+  }
+
 
 }

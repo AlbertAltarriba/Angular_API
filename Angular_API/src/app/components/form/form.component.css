@@ -1,0 +1,12 @@
+form.ng-submitted input.ng-invalid{
+    border-bottom: 3px solid tomato;
+  }
+  
+input.ng-valid.ng-touched{
+    border-bottom: 3px solid lightgreen;
+  }
+  
+.error{
+    color: tomato;
+    font-size: 12px;
+  }
