@@ -4,11 +4,11 @@
     <img [src]="myUser.image" class="img-fluid rounded-circle border border-secondary" [alt]="myUser.first_name">
   </div>
   <div class="card-body">
-    <h5 class="card-title title text-center">{{ myUser.first_name }} {{myUser.last_name}}</h5>
+    <h5 class="card-title title text-center">{{myUser.first_name}} {{myUser.last_name}}</h5>
   </div>
   <div class="btn-group d-grid gap-2 d-md-inline-block py-1 px-1  ">
     <button class="btn btn-outline-secondary col-md-4" [routerLink]="['/user', myUser.id, currentPage]" title="Ver contacto"><i class="fa-solid fa-eye"></i></button>
-    <button class="btn btn-outline-secondary col-md-4" [routerLink]="['/updateuser', myUser.id]" title="Editar contacto"><i class="fa-solid fa-pen-to-square"></i></button>
+    <button class="btn btn-outline-secondary col-md-4" [routerLink]="['/updateuser', myUser.id]" title="Editar contacto"><i class="fa-solid fa-user-pen"></i></button>
     <button class="btn btn-outline-secondary col-md-4" (click)="deleteUser(myUser.id)" title="Eliminar contacto"><i class="fa-solid fa-trash-can"></i></button>
   </div>
 </div>

@@ -35,15 +35,14 @@ export class UserViewComponent implements OnInit {
           title: 'Oops...',
           text: response.error
         })
-      }
-            
+      }     
     })
   }
 
   deleteUser(): void{
     Swal.fire({
       title: '¿Seguro que quieres eliminar este usuario?',
-      text: "No hay marcha atrás!",
+      text: "¡No hay marcha atrás!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -55,8 +54,8 @@ export class UserViewComponent implements OnInit {
         let response = await this.usersService.delete(this.myUser.id);
         if(response.id){
           Swal.fire(
-            'Eliminado!',
-            `Usuario ${response.first_name} ${response.last_name} eliminado correctamente!`,
+            '¡Eliminado!',
+            `¡Usuario ${response.first_name} ${response.last_name} eliminado correctamente!`,
             'success'
           )
           this.router.navigate([`/home/${this.currentPage}`]);
@@ -71,5 +70,4 @@ export class UserViewComponent implements OnInit {
       }
     })  
   }
-
 }

@@ -21,7 +21,7 @@ export class UserCardComponent implements OnInit {
   deleteUser(pId: number | undefined): void{
     Swal.fire({
       title: '¿Seguro que quieres eliminar este usuario?',
-      text: "No hay marcha atrás!",
+      text: "¡No hay marcha atrás!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -34,13 +34,12 @@ export class UserCardComponent implements OnInit {
           let response = await this.usersService.delete(pId);
           if(response.id){
             Swal.fire(
-              'Eliminado!',
-              `Usuario ${response.first_name} ${response.last_name} eliminado correctamente!`,
+              '¡Eliminado!',
+              `¡Usuario ${response.first_name} ${response.last_name} eliminado correctamente!`,
               'success'
             )
           }
-          //Si se obtiene un error en API
-          else{ 
+          else{ //error API delete
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
@@ -48,8 +47,7 @@ export class UserCardComponent implements OnInit {
             })
           }
         }
-        //Si el usuario es undefined
-        else{       
+        else{ //error usuario undefined 
           Swal.fire({
             icon: 'error',
             title: 'Oops...',

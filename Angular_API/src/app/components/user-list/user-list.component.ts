@@ -30,11 +30,9 @@ export class UserListComponent implements OnInit {
         this.gotoPage(1);
       }    
     })
-    
   }
 
   async gotoPage(pPage: number): Promise<void> {
-    
     let response = await this.usersService.getAll(pPage);
     if(response.page <= response.total_pages){
       this.currentPage = response.page;
@@ -50,5 +48,4 @@ export class UserListComponent implements OnInit {
       this.router.navigate(['/home']);
     }
   }
-
 }

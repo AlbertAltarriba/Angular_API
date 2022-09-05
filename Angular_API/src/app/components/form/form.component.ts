@@ -15,7 +15,7 @@ export class FormComponent implements OnInit {
   userForm: FormGroup;
   submitted: boolean = false;
 
-  type: string = "Crear nuevo";
+  type: string = "Crear";
 
   constructor(
     private usersService: UsersService,
@@ -23,7 +23,10 @@ export class FormComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) { 
     this.userForm = new FormGroup({
-      first_name: new FormControl('', [Validators.required]),
+      first_name: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/[a-zA-Z]+/)
+      ]),
       last_name: new FormControl('', [
         Validators.required,
         Validators.pattern(/[a-zA-Z]+\s[a-zA-Z]+/)
@@ -43,11 +46,9 @@ export class FormComponent implements OnInit {
   async getDataForm(): Promise<void> {
     if(this.userForm.valid){
       let newUser = this.userForm.value;
-      if (newUser.id) {
-        //actualizar usuario
-        if(this.userForm.dirty){ // solo hacer peticion si hay cambios en el form
+      if (newUser.id) { //actualizar usuario
+        if(this.userForm.dirty){ //solo hacer peticion si hay cambios en el form
           let response = await this.usersService.update(newUser);
-
           if (response.id) {
             Swal.fire({
               icon: 'success',
@@ -78,13 +79,12 @@ export class FormComponent implements OnInit {
           })
         }
       } 
-      else {
-        //crear nuevo usuario
+      else {  //crear nuevo usuario        
         let response = await this.usersService.create(newUser)
         if (response.id) {
           Swal.fire({
             icon: 'success',
-            title: `Usuario ${response.first_name} ${response.last_name} creado correctamente!`,
+            title: `¡Usuario ${response.first_name} ${response.last_name} creado correctamente!`,
             imageUrl: response.image,
             imageWidth: 200,
             imageHeight: 200,
@@ -143,13 +143,8 @@ export class FormComponent implements OnInit {
     if(this.submitted){
       if (this.userForm.get(pControlName)?.hasError(pError) ) {
         return true;
-      } else {
-        return false;
-      }
+      } else return false;
     }
     else return false;
-    
   }
-
-
 }

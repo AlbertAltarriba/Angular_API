@@ -6,6 +6,7 @@
         <label class="form-label" for="first_name">Nombre</label>
         <input class="form-control mb-3" type="text" id="first_name" formControlName="first_name">
         <p class="error" *ngIf="checkControl('first_name', 'required')">Campo requerido</p>
+        <p class="error" *ngIf="checkControl('first_name', 'pattern')">Por favor, introduce solo caracteres válidos</p>
       </div>
   
       <div>
@@ -32,13 +33,12 @@
         <label class="form-label mt-3" for="password">Password</label>
         <input class="form-control" type="password" id="password" formControlName="password">
         <p class="error" *ngIf="checkControl('password', 'required')">Campo requerido</p>
-        <p class="error" *ngIf="checkControl('password', 'minlength')">La longitud del password debe ser entre 6 y 20 carácteres</p>
-        <p class="error" *ngIf="checkControl('password', 'maxlength')">La longitud del password debe ser entre 6 y 20 carácteres</p>
+        <p class="error" *ngIf="checkControl('password', 'minlength')">La longitud del password debe ser entre 6 y 20 caracteres</p>
+        <p class="error" *ngIf="checkControl('password', 'maxlength')">La longitud del password debe ser entre 6 y 20 caracteres</p>
       </div>
   
       <input type="submit" [value]="type" class="btn btn-success mt-3">
     </form>
-  
   </section>
   
   
